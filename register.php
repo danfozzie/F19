@@ -23,15 +23,16 @@ $cnfrmpass = @$_POST['cnfrmpass'];
 $submit = @$_POST['submit'];
 
 if($submit) {
-    if ($department==true){
-        if($email==true) {
-            if($password==true){
-                if($password==$cnfrmpass){
-                    if((strlen($department)<50) || (strlen($email)<50)){
-                        if((strlen($password)<50) || (strlen($password)>5)){
+    if ($department == true) {
+        if ($email == true) {
+            if ($username == true) {
+                if ($password == true) {
+                if ($password == $cnfrmpass) {
+                    if ((strlen($department) < 50) || (strlen($email) < 50)) {
+                        if ((strlen($password) < 50) || (strlen($password) > 5)) {
 
 
-                           $sql = "INSERT INTO `login`(`email`, `department`, `username`, `password`) VALUES ('$email', '$department', '$username', '$password')";
+                            $sql = "INSERT INTO `login`(`email`, `department`, `username`, `password`) VALUES ('$email', '$department', '$username', '$password')";
                             if ($db->query($sql)) {
                                 echo '<div class="alert alert-success alert-dismissible" role="alert">
                                         <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -41,43 +42,42 @@ if($submit) {
                                 echo "Error: " . $sql . "<br>" . $db->error;
                             }
 
-                        }
-                        else
+                        } else
                             echo '<div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong> Password muct be between 5 & 50 characters.
 </div>';
-                    }
-                    else
-                        echo  '<div class="alert alert-danger alert-dismissible" role="alert">
+                    } else
+                        echo '<div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong> The department name / email must be < 50 characters.
 </div>';
-                }
-                else
+                } else
                     echo '<div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong> Password do not match.
 </div>';
-            }
-            else
+            } else
                 echo '<div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong> Please enter a password.
 </div>';
-        }
-        else
+                } else
+                echo '<div class="alert alert-danger alert-dismissible" role="alert">
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+  <strong>Warning!</strong> Please enter a username.
+</div>';
+        } else
             echo '<div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong> Please enter an email id.
 </div>';
-    }
-    else
-       echo '<div class="alert alert-danger alert-dismissible" role="alert">
+    } else
+        echo '<div class="alert alert-danger alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
   <strong>Warning!</strong> Please enter a department name.
 </div>';
-};
+}
 ?> 
 
 </head>
@@ -156,11 +156,11 @@ if($submit) {
                 <hr>
                 <div class="form-group">
                     <div class="col-xs-offset-1 col-xs-10">
-                        <button name="submit" type="submit" value="Submit" class="btn btn-lg btn-block" id="subB">Submit</button>
+                        <button name="submit" type="submit" value="Submit" class="btn btn-lg btn-block" id="subB">Register</button>
                     </div>
                 </div>
             </form>
         </div>
 </div>
 </body>
-</html>  
+</html>
