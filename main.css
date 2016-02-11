@@ -206,6 +206,11 @@ input {
     font-family:monospace; 
 }
 
+#loglbl {
+    
+    font-size: 14px;
+}
+
 
 
 /*
@@ -452,6 +457,7 @@ p a:hover {
 #loginB {
     background-color:#31006B;
     color: white;
+    width:250px;
 }
 
 #loginB a {
@@ -466,7 +472,7 @@ p a:hover {
 #regisB {
     background-color:#CC0066;
     color:white;
-    
+    width:250px;
 }
 
 #subB a {
