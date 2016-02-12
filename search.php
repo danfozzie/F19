@@ -99,7 +99,7 @@
                     <div class="col-xs-1">
                         Min
                         <input type="range" min="0" max="400" value="0" id="slider" step="5" oninput="outputUpdate(value)">
-                        <input type="dept" class="form-control input-sm" id="students" value="0" oninput="sliderUpdate(value)" name="minStudents">                  
+                        <input type="dept" class="form-control input-sm" id="students" value="0" oninput="sliderUpdate(value)" name='minStudents'>                  
                     </div>
                     <div class="col-xs-1">
                         Max
@@ -112,6 +112,8 @@
             <div id="preferences">
                     
                 <div class="form-group">
+
+                    
                     <div class="col-xs-offset-3 col-xs-1">
                         <div class="checkbox">
                             <label><input type="checkbox" checked>Computer</label>
@@ -119,11 +121,11 @@
                         <div class="checkbox">
                             <label><input type="checkbox" checked>Data Projector</label>
                         </div>
-                   </div>
+                    </div>
                     <div class="col-xs-offset col-xs-1">
                         <div class="checkbox">
                             <label><input type="checkbox">Dual Data Projection</label>
-                        </div>
+                        </div>    
                         <div class="checkbox">
                             <label><input type="checkbox">Visualiser</label>
                         </div>
@@ -131,10 +133,10 @@
                     <div class="col-xs-offset col-xs-1">
                         <div class="checkbox">
                             <label><input type="checkbox">Blu-ray Player</label>
-                        </div>
+                        </div>                    
                         <div class="checkbox">
                             <label><input type="checkbox">Whiteboard</label>
-                        </div>
+                        </div>                                        
                     </div>
                     <div class="col-xs-offset col-xs-1">
                         <div class="checkbox">
@@ -142,7 +144,7 @@
                         </div>
                         <div class="checkbox">
                             <label><input type="checkbox">Wheelchair Access</label>
-                        </div>
+                        </div>   
                     </div>
                     <div class="col-xs-offset col-xs-1">
                         <div class="checkbox">
@@ -150,7 +152,7 @@
                         </div>
                         <div class="checkbox">
                             <label><input type="checkbox">Radio Microphone</label>
-                        </div>
+                        </div>  
                     </div>
                     <div class="col-xs-offset col-xs-1">
                         <div class="checkbox">
@@ -158,22 +160,135 @@
                         </div>
                         <div class="checkbox">
                             <label><input type="checkbox">ReVIEW Capture</label>
-                        </div>                        
+                        </div>
+                        
                     </div>
                 </div>
                 <hr>
             </div>
-                <div id="submitButton">
-            
-        <div class="form-group">
-                    <div id="searchBar">
-                        <input type="submit" class="btn btn-lg btn-block" id="subButton" value="Search">
-                    </div>
-        </div>
-      
-            </div>
+                <div id="submitButton">           
+                    <div class="form-group">
+                        <div id="searchBar">
+                            <input type="submit" class="btn btn-lg btn-block" id="subButton" value="Search">
+                        </div>
+                    </div>      
+                </div>
             </form>
         </div>
-    
+        <br>
+        <br>
+
+        <table class="table table-bordered"  id="table">
+        <thead>
+          <tr>
+            <th>Area of Campus</th>
+            <th>Building</th>
+            <th>Room</th>
+            <th>Room Capacity</th>
+            <th>Computer</th>
+            <th>Data Projector</th>
+            <th>Dual Data Projection</th>
+            <th>Visualiser</th>
+            <th>Blu-ray Player</th>
+            <th>Whiteboard</th>
+            <th>Glass Whiteboard</th>            
+            <th>Wheelchair Access</th>
+            <th>PA System</th>
+            <th>Radio Microphone</th>
+            <th>DVD Player</th>
+            <th>ReVIEW Capture</th>
+            <th>Book Room</th>
+          </tr>
+        </thead>
+        <tbody id="table">
+            <tr>
+                <td>Central</td>
+                <td>Haslegrave</td>
+                <td>N.001</td>
+                <td>39</td>
+                <td id="cCodeAS">Y</td>
+                <td id="cCodeAS">Y</td>
+                <td id="cCodeAS">Y</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeAS">Y</td>
+                <td id="cCodeBS">N</td>
+                <td id="cCodeBS">N</td>
+                <td><input type="button" value=">>"></td>
+            </tr>
+            <?php
+                $username='crew18';
+                $password='qrp94jnm';
+                $host='co-project.lboro.ac.uk';
+                $dbName='crew18';
+
+                $dsn = "mysql://$username:$password@$host/$dbName";
+
+                require_once('MDB2.php');
+                $db =& MDB2::connect($dsn);
+
+                if (PEAR::isError($db)) { 
+                    die($db->getMessage());
+                }
+                else {
+                    if($_POST['minStudents'] <= $_POST['maxStudents']){
+                        if ($_POST['park'] != 'Any'){
+                            if($_POST['building'] != 'Any') {
+                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (b.park='".$_POST['park']."') AND (r.building='".$_POST['building']."') ORDER BY b.building";
+                                $res =& $db->query($sql);
+                                if (PEAR::isError($res)) {
+                                    die($res->getMessage());
+                                }
+                                while ($row = $res->fetchRow()) { 
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                }
+                            }
+                            else {
+                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (b.park='".$_POST['park']."') ORDER BY b.building";
+                                $res =& $db->query($sql);
+                                if (PEAR::isError($res)) {
+                                    die($res->getMessage());
+                                }
+                                while ($row = $res->fetchRow()) { 
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                }
+                            }
+                        }
+                        else {
+                            if($_POST['building'] != 'Any') {
+                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (r.building='".$_POST['building']."') ORDER BY b.building";
+                                $res =& $db->query($sql);
+                                if (PEAR::isError($res)) {
+                                    die($res->getMessage());
+                                }
+                                while ($row = $res->fetchRow()) { 
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                }
+                            }
+                            else {
+                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) ORDER BY b.building";
+                                $res =& $db->query($sql);
+                                if (PEAR::isError($res)) {
+                                    die($res->getMessage());
+                                }
+                                while ($row = $res->fetchRow()) { 
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                }
+                            }
+                        }
+                    }
+                    else {
+                        echo "Please ensure that Minimum Room Capacity is less than Maximum Room Capacity";
+                    }
+                }
+            ?>
+        
+
+        </tbody>
+      </table>  
 </body>
 </html>
