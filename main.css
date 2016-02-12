@@ -46,6 +46,18 @@
     background-color:#CC0066;
 }
 
+/*#navbar button:hover {
+    background-color:#CC0066;
+}
+
+#navbar button {
+    border: 3px solid;
+}*/
+
+#navbar button span {
+    border: 2px solid;
+}
+
 .navbar p {
     font-size: 11px;
     padding:10px;
@@ -189,6 +201,15 @@ input {
     background-color:#F2F2F2;
     color:black;
     padding:5px;
+}
+
+.rmbrme {
+    font-family:monospace; 
+}
+
+#loglbl {
+    
+    font-size: 14px;
 }
 
 
@@ -463,6 +484,7 @@ p a:hover {
 #loginB {
     background-color:#31006B;
     color: white;
+    width:250px;
 }
 
 #loginB a {
@@ -471,11 +493,13 @@ p a:hover {
 
 #regisB a {
     color:white;
+    
 }
 
 #regisB {
     background-color:#CC0066;
     color:white;
+    width:250px;
 }
 
 #subB a {

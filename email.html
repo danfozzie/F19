@@ -55,48 +55,50 @@
     <div class="container">
         <div id="fBorderP">
             <h1>
-                Change Password
+                Change Email ID
             </h1>
             <br>
             <hr>
-            <form class="form-horizontal" method="post" action="password.php">
+            <form class="form-horizontal" method="post" action="email.php">
                 <div class="form-group">
                     <div class="form-group">
-                        <label name="pwun" for="inputName" class="control-label col-xs-4">Username*</label>
+                        <label name="emun" for="inputName" class="control-label col-xs-4">Username*</label>
                         <div class="col-xs-5">
                             <input name="username" type="text" class="form-control" id="username" placeholder="Department Code e.g. CO">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label name="pwem" for="inputName" class="control-label col-xs-4">Email*</label>
+                        <label name="empass" for="inputName" class="control-label col-xs-4">Password*</label>
                         <div class="col-xs-5">
-                            <input name="email" type="text" class="form-control" id="email" placeholder="@lboro.ac.uk">
+                            <input name="password" type="password" class="form-control" id="password">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pwoldpass" class="control-label col-xs-4">Old Password*</label>
+                        <label for="emoldem" class="control-label col-xs-4">Old Email Address*</label>
                         <div class="col-xs-5">
-                            <input type="password" class="form-control" id="oldpass" placeholder="" name="oldpass">
+                            <input type="text" class="form-control" id="oldemail" placeholder="" name="oldemail" placeholder="@lboro.ac.uk">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pwnewpass" class="control-label col-xs-4">New Password*</label>
+                        <label for="emnewem" class="control-label col-xs-4">New Email Address*</label>
                         <div class="col-xs-5">
-                            <input type="password" class="form-control" id="newpass" placeholder="" name="newpass">
+                            <input type="text" class="form-control" id="newemail" placeholder="" name="newemail" placeholder="@lboro.ac.uk">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="pwcnfrmem" class="control-label col-xs-4">Confirm Password*</label>
+                        <label for="emenfrmem" class="control-label col-xs-4">Confirm Email Address*</label>
                         <div class="col-xs-5">
-                            <input type="password" class="form-control" id="cnfrmpass" name="cnfrmpass">
+                            <input type="text" class="form-control" id="cnfrmemail" name="cnfrmemail" placeholder="@lboro.ac.uk">
                         </div>
                     </div>                   
                 </div>
+                
                     <div class="col-xs-12">
                         <div class="col-xs-offset-1 col-xs-10">
                             <button id="regisB" class="btn btn-lg" type="submit" name="submit">
-                                <!--  <a href="login.html"></a>   --> Update Password </button>
+                                <!--  <a href="login.html"></a>   --> Update Email ID </button>
                             <br><br>
+
                         </div>
                     </div>  
             </form>
