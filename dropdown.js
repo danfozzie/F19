@@ -830,3 +830,11 @@ function outputUpdate(vol) {
 function sliderUpdate(vol) {
     document.querySelector('#slider').value = vol;
 }
+
+function outputUpdate2(vol) {
+	document.querySelector('#students2').value = vol;
+}
+
+function sliderUpdate2(vol) {
+    document.querySelector('#slider2').value = vol;
+}
