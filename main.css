@@ -20,6 +20,7 @@
 }
 .form {
     margin: 0 auto;
+    width: 90%;
 }
 
 .container {
@@ -111,7 +112,7 @@ form {
     height:80%;
     margin:auto;
     position:relative;
-    font-size:11px;
+    font-size:1em;
 }
 
 #module {
@@ -293,31 +294,46 @@ input[type=range]:focus::-ms-fill-upper {
 --------------
 */
 
-table {
-   margin-top:30px;
-}
-
 th { /* TABLE HEADER */
     background-color:#31006B;
     color:white;
-    font-size:11px;
+    font-size:1em;
     text-align: center;
     vertical-align: middle;
+    width: 5%;
+    border-radius:10px;
+    -moz-border-radius:10px;
 }
 
 td { /* TABLE DATA */
-    font-size:10px;
+    font-size:1em;
+    margin-top: 0;
+    margin-bottom: 0;
     vertical-align: middle;
+    border-radius:10px;
+    -moz-border-radius:10px;
 }
 
 #cCodeAS { /* available search */
-    background-color:#96db96;
-    color:#96db96;
+    background-color:#ccffcc;
+    color:#009933;
+    font-size: 1.25em;
+    font-weight: bold;
+    vertical-align: middle;
+    width: 3%;
+    border-radius:10px;
+    -moz-border-radius:10px;
 }
 
 #cCodeBS { /* booked search */
-    background-color: #ee7e7b;
-    color:#ee7e7b;
+    background-color: #eecccc;
+    color:#cc0000;
+    font-size: 1.25em;
+    font-weight: bold;
+    vertical-align: middle;
+    width: 3%;
+    border-radius:10px;
+    -moz-border-radius:10px;
 }
 
     /*
@@ -342,6 +358,17 @@ td { /* TABLE DATA */
 #cCodeB:hover {
     background-color: #e53c37;
     color:black;
+}
+
+#bookButton {
+    border-radius:10px;
+    -moz-border-radius:10px;
+    background-color: #ff0066;
+    color: white;
+    font-weight: bold;
+    width: 75%;
+    height: 30px%;
+    vertical-align: middle;
 }
 
 /*

@@ -41,7 +41,7 @@
         <li><a href="booking.html">Booking Status</a></li>
         <li><a href="contact.html">Contact</a></li>
       </ul>
-        <p>You are logged in as, Bob Murphy</p>
+        <p>You are logged in as: Bob Murphy</p>
         <div id="button">
           <button type="button" class="btn" id="regButton"><a href="login.html">Logout</a></button>
         </div>
@@ -54,7 +54,7 @@
 -->
   
     <div class="container">
-      <h2>Search</h2>
+      <h2>Room Search</h2>
         <div id="fBorder">
             <form class="form-horizontal" action="search.php" method="post">
                 <div id="search">
@@ -201,25 +201,6 @@
           </tr>
         </thead>
         <tbody id="table">
-            <tr>
-                <td>Central</td>
-                <td>Haslegrave</td>
-                <td>N.001</td>
-                <td>39</td>
-                <td id="cCodeAS">Y</td>
-                <td id="cCodeAS">Y</td>
-                <td id="cCodeAS">Y</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeAS">Y</td>
-                <td id="cCodeBS">N</td>
-                <td id="cCodeBS">N</td>
-                <td><input type="button" value=">>"></td>
-            </tr>
             <?php
                 $username='crew18';
                 $password='qrp94jnm';
@@ -244,7 +225,16 @@
                                     die($res->getMessage());
                                 }
                                 while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                    for($i=6;$i<=17;$i++){
+                                            if($row[$i] == 1) {
+                                                echo "<td id='cCodeAS'>Y</td>";
+                                            }
+                                            else if($row[$i] == 0) {
+                                                echo "<td id='cCodeBS'>N</td>";
+                                            }
+                                    }
+                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
                                 }
                             }
                             else {
@@ -254,7 +244,16 @@
                                     die($res->getMessage());
                                 }
                                 while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                    for($i=6;$i<=17;$i++){
+                                            if($row[$i] == 1) {
+                                                echo "<td id='cCodeAS'>Y</td>";
+                                            }
+                                            else if($row[$i] == 0) {
+                                                echo "<td id='cCodeBS'>N</td>";
+                                            }
+                                    }
+                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
                                 }
                             }
                         }
@@ -266,7 +265,16 @@
                                     die($res->getMessage());
                                 }
                                 while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                    for($i=6;$i<=17;$i++){
+                                            if($row[$i] == 1) {
+                                                echo "<td id='cCodeAS'>Y</td>";
+                                            }
+                                            else if($row[$i] == 0) {
+                                                echo "<td id='cCodeBS'>N</td>";
+                                            }
+                                    }
+                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
                                 }
                             }
                             else {
@@ -276,7 +284,16 @@
                                     die($res->getMessage());
                                 }
                                 while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td><td>".$row[6]."</td><td>".$row[7]."</td><td>".$row[8]."</td><td>".$row[9]."</td><td>".$row[10]."</td><td>".$row[11]."</td><td>".$row[12]."</td><td>".$row[13]."</td><td>".$row[14]."</td><td>".$row[15]."</td><td>".$row[16]."</td><td>".$row[17]."</tr>";
+                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                    for($i=6;$i<=17;$i++){
+                                            if($row[$i] == 1) {
+                                                echo "<td id='cCodeAS'>Y</td>";
+                                            }
+                                            else if($row[$i] == 0) {
+                                                echo "<td id='cCodeBS'>N</td>";
+                                            }
+                                    }
+                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
                                 }
                             }
                         }
