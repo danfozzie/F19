@@ -20,7 +20,7 @@
     </style>
 </head>
     
-<body>
+<body onload="selectedPark()">
 <!--
     NAVBAR  
 -->
@@ -74,26 +74,7 @@
         
         <label for="inputRooms" class="control-label col-xs-1">Building</label>
                     <div class="col-xs-2" id="buildings">
-                        <script type="text/javascript">
-                            function selectedPark() {
-                                var e = document.getElementById("park");
-                                var selected = e.options[e.selectedIndex].text;
-                                
-                                if(selected == "Any"){
-                                    document.getElementById("buildings").innerHTML = "<select class='form-control' id='any' name='building'>         <option>Any</option>                                                                                          <option>Clyde Williams</option>                                                                             <option>Sir John Beckwith</option>                                                                      <option>Ann Packer</option>                                                                             <option>Lboro Design School</option>                                                                          <option>Edward Barnsley</option>                                                                       <option>John Cooper</option>                                                                        <option>Matthew Arnold</option>                                                                             <option>Schofield</option>                                                                      <option>Brockington</option>                                                                            <option>James France (CC)</option>                                                                      <option>James France (D)</option>                                                                            <option>G Block</option>                                                                                   <option>Wavy Top</option>                                                                           <option>Edward Herbert</option>                                                                               <option>Haslegrave</option>                                                                                    <option>Stewart Mason</option>                                                                  <option>Brockington Extension</option>                                                                        <option>Any</option>                                                                                    <option>John Pickford</option>                                                                          <option>Keith Green</option>                                                                            <option>Sir Frank Gibb</option>                                                                 <option>IPTME</option>                                                                                  <option>Wolfson</option>                                                                                <option>Sir David Davies</option>                                                                        </select>";
-                                }
-                                else if(selected == 'East'){
-                                    document.getElementById("buildings").innerHTML = "<select class='form-control' id='east' name='building'>                         <option>Any</option>                                                                                        <option>Clyde Williams</option>                                                                                 <option>Sir John Beckwith</option>                                                                          <option>Ann Packer</option>                                                                             <option>Lboro Design School</option>                                                                <option>Edward Barnsley</option>                                                                        <option>John Cooper</option>                                                                        <option>Matthew Arnold</option>                                                                         </select>"; 
-                                }
-                                else if(selected == 'Central'){
-                                    document.getElementById("buildings").innerHTML = "<select class='form-control' id='central' name='building'>          <option>Any</option>                                                                        <option>Schofield</option>                                                                          <option>Brockington</option>                                                                            <option>James France (CC)</option>                                                                              <option>James France (D)</option>                                                                               <option>G Block</option>                                                                                <option>Wavy Top</option>                                                                           <option>Edward Herbert</option>                                                                                 <option>Haslegrave</option>                                                                         <option>Stewart Mason</option>                                                                      <option>Brockington Extension</option>                                                                  </select>";
-                                }
-                                else if(selected == 'West'){
-                                    document.getElementById("buildings").innerHTML = "<select class='form-control' id='west' name='building'>                     <option>Any</option>                                                                                    <option>John Pickford</option>                                                                          <option>Keith Green</option>                                                                            <option>Sir Frank Gibb</option>                                                                 <option>IPTME</option>                                                                                  <option>Wolfson</option>                                                                                <option>Sir David Davies</option>                                                                           </select>"
-                                }
-                            }
-                            selectedPark();
-                        </script>
+                    
                     </div>
         <label for="inputRooms" class="control-label col-xs-1">Room Capacity</label>
                     <div class="col-xs-1">
@@ -177,7 +158,7 @@
         </div>
         <br>
         <br>
-
+            
         <table class="table table-bordered"  id="table">
         <thead>
           <tr>
@@ -200,112 +181,114 @@
             <th>Book Room</th>
           </tr>
         </thead>
-        <tbody id="table">
-            <?php
-                $username='crew18';
-                $password='qrp94jnm';
-                $host='co-project.lboro.ac.uk';
-                $dbName='crew18';
+            <tbody id="table">
+                <?php
+                    $username='crew18';
+                    $password='qrp94jnm';
+                    $host='co-project.lboro.ac.uk';
+                    $dbName='crew18';
 
-                $dsn = "mysql://$username:$password@$host/$dbName";
+                    $dsn = "mysql://$username:$password@$host/$dbName";
 
-                require_once('MDB2.php');
-                $db =& MDB2::connect($dsn);
+                    require_once('MDB2.php');
+                    $db =& MDB2::connect($dsn);
 
-                if (PEAR::isError($db)) { 
-                    die($db->getMessage());
-                }
-                else {
-                    if($_POST['minStudents'] <= $_POST['maxStudents']){
-                        if ($_POST['park'] != 'Any'){
-                            if($_POST['building'] != 'Any') {
-                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (b.park='".$_POST['park']."') AND (r.building='".$_POST['building']."') ORDER BY b.building";
-                                $res =& $db->query($sql);
-                                if (PEAR::isError($res)) {
-                                    die($res->getMessage());
-                                }
-                                while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
-                                    for($i=6;$i<=17;$i++){
-                                            if($row[$i] == 1) {
-                                                echo "<td id='cCodeAS'>Y</td>";
-                                            }
-                                            else if($row[$i] == 0) {
-                                                echo "<td id='cCodeBS'>N</td>";
-                                            }
+                    if (PEAR::isError($db)) { 
+                        die($db->getMessage());
+                    }
+                    else {
+                        if($_POST['minStudents'] <= $_POST['maxStudents']){
+                            if ($_POST['park'] != 'Any'){
+                                if($_POST['building'] != 'Any') {
+                                    $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (b.park='".$_POST['park']."') AND (r.building='".$_POST['building']."') ORDER BY b.building";
+                                    $res =& $db->query($sql);
+                                    if (PEAR::isError($res)) {
+                                        die($res->getMessage());
                                     }
-                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
+                                    while ($row = $res->fetchRow()) { 
+                                        echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                        for($i=6;$i<=17;$i++){
+                                                if($row[$i] == 1) {
+                                                    echo "<td id='cCodeAS'>Y</td>";
+                                                }
+                                                else if($row[$i] == 0) {
+                                                    echo "<td id='cCodeBS'>N</td>";
+                                                }
+                                        }
+                                        echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
+                                    }
+                                }
+                                else {
+                                    $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (b.park='".$_POST['park']."') ORDER BY b.building";
+                                    $res =& $db->query($sql);
+                                    if (PEAR::isError($res)) {
+                                        die($res->getMessage());
+                                    }
+                                    while ($row = $res->fetchRow()) { 
+                                        echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                        for($i=6;$i<=17;$i++){
+                                                if($row[$i] == 1) {
+                                                    echo "<td id='cCodeAS'>Y</td>";
+                                                }
+                                                else if($row[$i] == 0) {
+                                                    echo "<td id='cCodeBS'>N</td>";
+                                                }
+                                        }
+                                        echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
+                                    }
                                 }
                             }
                             else {
-                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (b.park='".$_POST['park']."') ORDER BY b.building";
-                                $res =& $db->query($sql);
-                                if (PEAR::isError($res)) {
-                                    die($res->getMessage());
-                                }
-                                while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
-                                    for($i=6;$i<=17;$i++){
-                                            if($row[$i] == 1) {
-                                                echo "<td id='cCodeAS'>Y</td>";
-                                            }
-                                            else if($row[$i] == 0) {
-                                                echo "<td id='cCodeBS'>N</td>";
-                                            }
+                                if($_POST['building'] != 'Any') {
+                                    $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (r.building='".$_POST['building']."') ORDER BY b.building";
+                                    $res =& $db->query($sql);
+                                    if (PEAR::isError($res)) {
+                                        die($res->getMessage());
                                     }
-                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
+                                    while ($row = $res->fetchRow()) { 
+                                        echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                        for($i=6;$i<=17;$i++){
+                                                if($row[$i] == 1) {
+                                                    echo "<td id='cCodeAS'>Y</td>";
+                                                }
+                                                else if($row[$i] == 0) {
+                                                    echo "<td id='cCodeBS'>N</td>";
+                                                }
+                                        }
+                                        echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
+                                    }
+                                }
+                                else {
+                                    $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) ORDER BY b.building";
+                                    $res =& $db->query($sql);
+                                    if (PEAR::isError($res)) {
+                                        die($res->getMessage());
+                                    }
+                                    while ($row = $res->fetchRow()) { 
+                                        echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
+                                        for($i=6;$i<=17;$i++){
+                                                if($row[$i] == 1) {
+                                                    echo "<td id='cCodeAS'>Y</td>";
+                                                }
+                                                else if($row[$i] == 0) {
+                                                    echo "<td id='cCodeBS'>N</td>";
+                                                }
+                                        }
+                                        echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
+                                    }
                                 }
                             }
                         }
                         else {
-                            if($_POST['building'] != 'Any') {
-                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) AND (r.building='".$_POST['building']."') ORDER BY b.building";
-                                $res =& $db->query($sql);
-                                if (PEAR::isError($res)) {
-                                    die($res->getMessage());
-                                }
-                                while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
-                                    for($i=6;$i<=17;$i++){
-                                            if($row[$i] == 1) {
-                                                echo "<td id='cCodeAS'>Y</td>";
-                                            }
-                                            else if($row[$i] == 0) {
-                                                echo "<td id='cCodeBS'>N</td>";
-                                            }
-                                    }
-                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
-                                }
-                            }
-                            else {
-                                $sql = "SELECT b.park, b.building, r.building, r.roomCode, r.capacity, f.* FROM building AS b, room AS r, facilities AS f WHERE r.capacity>='".$_POST['minStudents']."' AND r.capacity<='".$_POST['maxStudents']."' AND (b.building = r.building) AND (f.roomCode = r.roomCode) ORDER BY b.building";
-                                $res =& $db->query($sql);
-                                if (PEAR::isError($res)) {
-                                    die($res->getMessage());
-                                }
-                                while ($row = $res->fetchRow()) { 
-                                    echo "<tr><td>".$row[0]."</td><td>".$row[1]."</td><td>".$row[3]."</td><td>".$row[4]."</td>";
-                                    for($i=6;$i<=17;$i++){
-                                            if($row[$i] == 1) {
-                                                echo "<td id='cCodeAS'>Y</td>";
-                                            }
-                                            else if($row[$i] == 0) {
-                                                echo "<td id='cCodeBS'>N</td>";
-                                            }
-                                    }
-                                    echo "<td><input type='button' id='bookButton' value='>>'></td></tr>";
-                                }
-                            }
+                            $message = "Please ensure Min Capacity is less than Max Capacity!";
+                            echo "<script type='text/javascript'>alert('$message');</script>";
                         }
                     }
-                    else {
-                        echo "Please ensure that Minimum Room Capacity is less than Maximum Room Capacity";
-                    }
-                }
-            ?>
-        
+                ?>
 
-        </tbody>
-      </table>  
-</body>
+
+            </tbody>
+        </table>
+        
+    </body>
 </html>
